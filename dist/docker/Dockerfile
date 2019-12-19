@@ -4,8 +4,8 @@ FROM ubuntu:18.04
 RUN apt-get update 
 RUN apt-get install -y curl
 RUN apt-get install -y lsb-core
-RUN apt-get -y install sudo
-RUN apt-get -y install postgresql postgresql-contrib
+# RUN apt-get -y install sudo
+# RUN apt-get -y install postgresql postgresql-contrib
 
 # Installing Kong
 RUN echo "deb https://kong.bintray.com/kong-deb `lsb_release -sc` main" | tee -a /etc/apt/sources.list
@@ -15,7 +15,6 @@ RUN apt-get update
 RUN apt-get install -y kong
 
 # Configure postgres
-RUN sudo -u postgres psql -c 'create database test;'
 
 # Start Kong
 # RUN kong start
