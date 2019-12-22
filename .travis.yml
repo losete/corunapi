@@ -6,8 +6,7 @@ language: node_js
 
 stages:
   - "Checkstyle"
-  #- Compile"
-  #- Run
+  - "Compile and run"
   #- Test
   #- Benchmark
   #  if: branch = master
@@ -37,9 +36,8 @@ before_script:
 jobs:
   include:
     - stage: "Checkstyle"
-      name: "Check code style"            # names the first Tests stage job
+      name: "Check code style"
       script:
-        - ls -la
         - jshint src/supermarket_locations.js
         - jshint src/atm_locations.js
         - jshint src/gas_locations.js
@@ -47,5 +45,14 @@ jobs:
         - jshint src/pharmacies_locations.js
         - jshint src/wc_locations.js
         - jshint src/water_locations.js
-
+    - stage: "Compile and run"
+      name: "Compile sources and run them"
+      script:
+        - node src/supermarket_locations.js &
+        - node src/atm_locations.js &
+        - node src/gas_locations.js &
+        - node src/hospital_locations.js &
+        - node src/pharmacies_locations.js &
+        - node src/wc_locations.js &
+        - node src/water_locations.js &
 
