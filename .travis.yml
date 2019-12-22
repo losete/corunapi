@@ -28,7 +28,8 @@ install:
   - sudo apt-get install -y kong
 
 before_script:
-  - psql -c 'CREATE USER kong; CREATE DATABASE kong OWNER kong;' -U postgres
+  - psql -c 'CREATE USER kong;' -U postgres
+  - psql -c 'CREATE DATABASE kong OWNER kong;' -U postgres
   - sudo kong start
 
 jobs:
