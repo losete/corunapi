@@ -1,0 +1,36 @@
+language: node_js
+
+stages:
+  - "Checkstyle"
+  #- Compile"
+  #- Run
+  #- Test
+  #- Benchmark
+  #  if: branch = master
+
+services:
+  - postgresql
+
+before_install:
+  - sudo apt-get update
+
+install:
+  - sudo apt-get install -y curl lsb-core
+  - npm install -g newman
+  - echo "deb https://kong.bintray.com/kong-deb `lsb_release -sc` main" | tee -a /etc/apt/sources.list
+  - curl -o bintray.key https://bintray.com/user/downloadSubjectPublicKey?username=bintray
+  - sudo apt-key add bintray.key
+  - sudo apt-get update
+  - apt-get install -y kong
+
+before_script:
+  - psql -c 'CREATE USER kong; CREATE DATABASE kong OWNER kong;' -U postgres
+  - sudo kong start
+
+jobs:
+  include:
+    - stage: "Checkstyle"
+      name: "Unit Tests"            # names the first Tests stage job
+      script: echo "Tests"
+
+
