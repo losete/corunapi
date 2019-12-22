@@ -21,5 +21,8 @@ RUN apt-get install -y kong
 # This has to be done outside, as it needs another container running postgres
 
 # Installing Node
-RUN curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+RUN curl -sL https://deb.nodesource.com/setup_13.x | bash -
 RUN apt-get install -y nodejs
+
+# Installing newman for tests
+RUN npm install -g newman
