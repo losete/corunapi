@@ -21,6 +21,7 @@ before_install:
 install:
   - sudo apt-get install -y curl lsb-core
   - npm install -g newman
+  - npm install -g jshint
   - echo "deb https://kong.bintray.com/kong-deb `lsb_release -sc` main" | tee -a /etc/apt/sources.list
   - curl -o bintray.key https://bintray.com/user/downloadSubjectPublicKey?username=bintray
   - sudo apt-key add bintray.key
@@ -37,6 +38,14 @@ jobs:
   include:
     - stage: "Checkstyle"
       name: "Check code style"            # names the first Tests stage job
-      script: echo "Tests"
+      script:
+        - ls -la
+        - jshint src/supermarket_locations.js
+        - jshint src/atm_locations.js
+        - jshint src/gas_locations.js
+        - jshint src/hospital_locations.js
+        - jshint src/pharmacies_locations.js
+        - jshint src/wc_locations.js
+        - jshint src/water_locations.js
 
 
