@@ -30,6 +30,7 @@ install:
 before_script:
   - psql -c 'CREATE USER kong;' -U postgres
   - psql -c 'CREATE DATABASE kong OWNER kong;' -U postgres
+  - sudo kong migrations bootstrap
   - sudo kong start
 
 jobs:
