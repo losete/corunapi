@@ -30,7 +30,7 @@ before_script:
 jobs:
   include:
     - stage: "Checkstyle"
-      name: "Unit Tests"            # names the first Tests stage job
+      name: "Check code style"            # names the first Tests stage job
       script: echo "Tests"
 
 
