@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
 
 class Map extends React.Component {
@@ -12,14 +12,14 @@ class Map extends React.Component {
   }
 
   getMarkers = () => {
-    if (this.props.points.length > 0){
+    if (this.props.points.length > 0) {
       var x = '';
-      var y = ''
+      var y = '';
       var tmp = [];
       var markers = [];
       for (var i = 0; i < this.props.points.length; i++) {
-        x = this.props.points[i]['x'];
-        y = this.props.points[i]['y'];
+        x = this.props.points[i].x;
+        y = this.props.points[i].y;
         tmp = <Marker position={[y,x]}> <Popup> Popup for any custom information. </Popup> </Marker>;
         markers.push(tmp);
       }

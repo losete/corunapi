@@ -13,17 +13,17 @@ const server = http.createServer((req, res) => {
 
 server.listen(port, hostname, () => {
   var tmp = [];
-  var tmpCoor = new Object();
+  var tmpCoor = {};
   fetch('http://overpass-api.de/api/interpreter?data=[out:json];(node[amenity=drinking_water](43.322498,-8.444925,43.389976,-8.382816);>;);out meta;'
       ).then(res => res.json())
         .then((data) => {
           var json = [];
-          for (var i = 0; i < data['elements'].length; i++) {
-            json = data['elements'][i];
-            tmpCoor.x = json['lon'];
-            tmpCoor.y = json['lat'];
+          for (var i = 0; i < data.elements.length; i++) {
+            json = data.elements[i];
+            tmpCoor.x = json.lon;
+            tmpCoor.y = json.lat;
             tmp.push(tmpCoor);
-            tmpCoor = new Object();
+            tmpCoor = {};
           }
           datos = tmp;
       });

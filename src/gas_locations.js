@@ -12,12 +12,12 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(port, hostname, () => {
-  var tmpCoor = []
+  var tmpCoor = [];
     fetch('http://www.mapabase.es/arcgis/rest/services/Otros/Gasolineras/FeatureServer/0/query?where=localidad+%3D+%27CORUÑA+%28A%29%27&outFields=latitud,longitud,horario,dirección,rótulo&f=json'
       ).then(res => res.json())
       .then((data) => {
-        for (var i = 0; i < data['features'].length; i++) {
-          tmpCoor.push(data['features'][i]['geometry']);
+        for (var i = 0; i < data.features.length; i++) {
+          tmpCoor.push(data.features[i].geometry);
         }
         datos = tmpCoor;
     });
