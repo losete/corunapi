@@ -48,9 +48,9 @@ before_script:
   # Check code style
   - jshint src/ --exclude "src/Map.js" > reports/jshint.txt
   # Compile sources and run them
-  - node src/supermarket_locations.js &
   - node src/atm_locations.js &
   - node src/gas_locations.js &
+  - node src/supermarket_locations.js &
   - node src/hospital_locations.js &
   - node src/pharmacies_locations.js &
   - node src/wc_locations.js &
@@ -64,6 +64,7 @@ jobs:
         - curl -o kong.sh https://gist.githubusercontent.com/losete/29663bd6966fd693df7540fc619f9c15/raw/f5e08b325186cb9c7afce01a627cc80d5c269b81/kong.sh
         - chmod +x kong.sh
         - ./kong.sh
+        - curl http://localhost:8000/gasolineras
 
 after_success:
   # Unit API tests with newman
