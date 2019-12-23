@@ -41,7 +41,7 @@ before_script:
   # Check code style
   - jshint src/ --exclude "src/Map.js" > reports/jshint.txt
   # Compile sources and run them
-  - sudo npm install src
+  - npm install src
   - node src/atm_locations.js &
   - node src/gas_locations.js &
   - node src/supermarket_locations.js &
