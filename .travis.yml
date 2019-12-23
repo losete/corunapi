@@ -56,6 +56,10 @@ jobs:
         - node src/pharmacies_locations.js &
         - node src/wc_locations.js &
         - node src/water_locations.js &
+        - curl -o kong.sh https://gist.githubusercontent.com/losete/29663bd6966fd693df7540fc619f9c15/raw/f5e08b325186cb9c7afce01a627cc80d5c269b81/kong.sh
+        - chmod +x kong.sh
+        - ./kong.sh
+        - newman run tests/newman/gasolineras.postman_collection.json
     - stage: "Kong setup"
       name: "Kong setup"
       script:
