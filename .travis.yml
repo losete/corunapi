@@ -54,9 +54,8 @@ script:
   - curl -o kong.sh https://gist.githubusercontent.com/losete/29663bd6966fd693df7540fc619f9c15/raw/6c301c8080149139aa8c38e3f0dc2262586094d8/kong.sh
   - chmod +x kong.sh
   - curl -X POST http://localhost:8001/plugins --data "name=cors" --data "config.origins=http://localhost" --data "config.methods=GET"
-  - curl -i -X POST --url http://localhost:8001/services/ --data 'name=gasolineras-service' --data 'url=http://localhost:3013/'
+  - curl -i -X POST --url http://localhost:8001/services/ --data 'name=gasolineras-service' --data 'url=http://127.0.0.1:3013/'
   - curl -i -X POST --url http://localhost:8001/services/gasolineras-service/routes --data 'paths[]=/gasolineras'
-  - ./kong.sh
   - newman run tests/newman/gasolineras.postman_collection.json
 
 
