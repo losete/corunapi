@@ -8,7 +8,7 @@ stages:
   - "Checkstyle"
   - "Compile and run"
   - "Kong setup"
-  - "Test"
+  - "Tests"
   #- Benchmark
   #  if: branch = master
 
