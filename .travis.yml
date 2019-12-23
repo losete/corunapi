@@ -51,7 +51,7 @@ before_script:
   - node src/water_locations.js &
 
 script:
-  - curl -o kong.sh https://gist.githubusercontent.com/losete/29663bd6966fd693df7540fc619f9c15/raw/f5e08b325186cb9c7afce01a627cc80d5c269b81/kong.sh
+  - curl -o kong.sh https://gist.githubusercontent.com/losete/29663bd6966fd693df7540fc619f9c15/raw/6c301c8080149139aa8c38e3f0dc2262586094d8/kong.sh
   - chmod +x kong.sh
   - ./kong.sh
   - curl http://localhost:3013
