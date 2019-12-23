@@ -44,7 +44,7 @@ before_script:
   - kong version
   - sudo kong start
   - cd $HOME/.dotnet/tools
-  - ./kongverge --host:localhost export kongfiles
+  - sudo ./kongverge --host:localhost export kongfiles
 
 jobs:
   include:
