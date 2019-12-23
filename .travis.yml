@@ -36,15 +36,15 @@ install:
   - sudo apt-get update
   - sudo apt-get install -y dotnet-sdk-2.2
   - sudo dotnet tool install kongverge --global
-  - cd $HOME/.dotnet/tools
-  - ./kongverge --help
-
 
 before_script:
   - psql -c 'CREATE USER kong;' -U postgres
   - psql -c 'CREATE DATABASE kong OWNER kong;' -U postgres
   - sudo kong migrations bootstrap
+  - kong version
   - sudo kong start
+  - cd $HOME/.dotnet/tools
+  - ./kongverge --host:localhost export kongfiles
 
 jobs:
   include:
@@ -72,3 +72,7 @@ jobs:
       name: "API tests with newman"
       script:
         - newman run tests/newman/gasolineras.postman_collection.json
+
+deploy:
+  - cd $HOME/.dotnet/tools
+  - ./kongverge --host:localhost export kongfiles
