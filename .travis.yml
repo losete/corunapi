@@ -6,7 +6,6 @@ node_js:
   - "10.15.3"
 
 stages:
-  - "Checkstyle"
   - "Compile and run"
   - "Kong setup"
   - "Tests"
@@ -43,8 +42,7 @@ before_script:
   - sudo kong migrations bootstrap
   - kong version
   - sudo kong start
-  - cd $HOME/.dotnet/tools
-  - sudo ./kongverge --host:localhost export kongfiles
+  - "Checkstyle"
 
 jobs:
   include:
@@ -75,4 +73,4 @@ jobs:
 
 deploy:
   - cd $HOME/.dotnet/tools
-  - ./kongverge --host:localhost export kongfiles
+  - sudo ./kongverge --host:localhost export kongfiles
