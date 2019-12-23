@@ -5,13 +5,6 @@ language: node_js
 node_js:
   - "10.15.3"
 
-stages:
-  - "Compile and run"
-  - "Kong setup"
-  - "Tests"
-  #- Benchmark
-  #  if: branch = master
-
 services:
   - postgresql
 
