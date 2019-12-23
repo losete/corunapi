@@ -56,6 +56,9 @@ script:
   - ./kong.sh
   - curl http://localhost:3013
   - curl -i -X GET --url http://localhost:8000/gasolineras
+  - curl -i -X GET --url http://localhost:8000/supermercados
+  - curl -i -X GET --url http://localhost:8000/farmacias
+  - curl -i -X GET --url http://localhost:8000/fuentes
   - newman run tests/newman/gasolineras.postman_collection.json
 
 
