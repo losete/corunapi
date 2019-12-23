@@ -29,7 +29,9 @@ install:
   - sudo apt-key add bintray.key
   - sudo apt-get update
   - sudo apt-get install -y kong
-  - sudo snap install go
+  - wget https://dl.google.com/go/go1.13.3.linux-amd64.tar.gz
+  - sudo tar -xvf go1.13.3.linux-amd64.tar.g
+  - sudo mv go /usr/local
   - go get "github.com/romanovskyj/gongfig"
 
 before_script:
