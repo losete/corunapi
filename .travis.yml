@@ -1,7 +1,6 @@
 os: linux
 dist: bionic
 
-
 language: node_js
 
 stages:
@@ -29,6 +28,7 @@ install:
   - sudo apt-get install -y kong
 
 before_script:
+  - newman --version
   - psql -c 'CREATE USER kong;' -U postgres
   - psql -c 'CREATE DATABASE kong OWNER kong;' -U postgres
   - sudo kong migrations bootstrap
@@ -56,18 +56,12 @@ jobs:
         - node src/pharmacies_locations.js &
         - node src/wc_locations.js &
         - node src/water_locations.js &
-        - curl -o kong.sh https://gist.githubusercontent.com/losete/29663bd6966fd693df7540fc619f9c15/raw/f5e08b325186cb9c7afce01a627cc80d5c269b81/kong.sh
-        - chmod +x kong.sh
-        - ./kong.sh
-        - newman --version
-        - newman run tests/newman/gasolineras.postman_collection.json
     - stage: "Kong setup"
       name: "Kong setup"
       script:
         - curl -o kong.sh https://gist.githubusercontent.com/losete/29663bd6966fd693df7540fc619f9c15/raw/f5e08b325186cb9c7afce01a627cc80d5c269b81/kong.sh
         - chmod +x kong.sh
         - ./kong.sh
-        - newman run tests/newman/gasolineras.postman_collection.json
     - stage: "Tests"
       name: "API tests with newman"
       script:
