@@ -42,7 +42,7 @@ before_script:
   - jshint src/ --exclude "src/Map.js" > reports/jshint.txt
   # Compile sources and run them
   - npm install src
-  - node src/atm_locations.js &
+  # - node src/atm_locations.js &
   - node src/gas_locations.js &
   - node src/supermarket_locations.js &
   - node src/hospital_locations.js &
@@ -55,7 +55,6 @@ script:
   - chmod +x kong.sh
   - ./kong.sh
   - curl http://localhost:3013
-  - curl http://localhost:8000/gasolineras
   - curl http://localhost:8000/gasolineras
   - newman run tests/newman/gasolineras.postman_collection.json
 
