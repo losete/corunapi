@@ -36,7 +36,8 @@ install:
   - sudo apt-get update
   - sudo apt-get install -y dotnet-sdk-2.2
   - sudo dotnet tool install kongverge --global
-  - kongverge --help
+  - cd $HOME/.dotnet/tools
+  - ./kongverge --help
 
 
 before_script:
