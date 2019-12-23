@@ -46,6 +46,7 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-leaflet": "^1.9.1",
-    "react-leaflet-markercluster": "^1.1.8"
+    "react-leaflet-markercluster": "^1.1.8",
+    "src": "^1.1.2"
   }
 }
