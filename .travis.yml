@@ -55,7 +55,7 @@ script:
   - chmod +x kong.sh
   - ./kong.sh
   - curl http://localhost:3013
-  - curl http://localhost:8000/gasolineras
+  - curl -i -X GET --url http://localhost:8000/gasolineras
   - newman run tests/newman/gasolineras.postman_collection.json
 
 
