@@ -50,16 +50,13 @@ before_script:
   - node src/wc_locations.js &
   - node src/water_locations.js &
 
-jobs:
-  include:
-    - stage: "Kong configuration"
-      name: "Kong setup"
-      script:
-        - curl -o kong.sh https://gist.githubusercontent.com/losete/29663bd6966fd693df7540fc619f9c15/raw/f5e08b325186cb9c7afce01a627cc80d5c269b81/kong.sh
-        - chmod +x kong.sh
-        - ./kong.sh
-        - curl http://localhost:3013
-        - curl http://localhost:8000/gasolineras
+
+script:
+  - curl -o kong.sh https://gist.githubusercontent.com/losete/29663bd6966fd693df7540fc619f9c15/raw/f5e08b325186cb9c7afce01a627cc80d5c269b81/kong.sh
+  - chmod +x kong.sh
+  - ./kong.sh
+  - curl http://localhost:3013
+  - curl http://localhost:8000/gasolineras
 
 after_success:
   # Unit API tests with newman
