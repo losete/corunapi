@@ -18,6 +18,7 @@ services:
 
 before_install:
   - sudo apt-get update
+  - mkdir reports/
 
 install:
   - sudo apt-get install -y curl lsb-core
@@ -28,9 +29,10 @@ install:
   - sudo apt-key add bintray.key
   - sudo apt-get update
   - sudo apt-get install -y kong
+  - sudo snap install go
+  - go get "github.com/romanovskyj/gongfig"
 
 before_script:
-  - newman --version
   - psql -c 'CREATE USER kong;' -U postgres
   - psql -c 'CREATE DATABASE kong OWNER kong;' -U postgres
   - sudo kong migrations bootstrap
@@ -41,13 +43,7 @@ jobs:
     - stage: "Checkstyle"
       name: "Check code style"
       script:
-        - jshint src/supermarket_locations.js
-        - jshint src/atm_locations.js
-        - jshint src/gas_locations.js
-        - jshint src/hospital_locations.js
-        - jshint src/pharmacies_locations.js
-        - jshint src/wc_locations.js
-        - jshint src/water_locations.js
+        - jshint src/ --exclude "src/Map.js" > reports/jshint.txt
     - stage: "Compile and run"
       name: "Compile sources and run them"
       script:
@@ -64,9 +60,7 @@ jobs:
         - curl -o kong.sh https://gist.githubusercontent.com/losete/29663bd6966fd693df7540fc619f9c15/raw/f5e08b325186cb9c7afce01a627cc80d5c269b81/kong.sh
         - chmod +x kong.sh
         - ./kong.sh
-        - newman run tests/newman/gasolineras.postman_collection.json
     - stage: "Tests"
       name: "API tests with newman"
       script:
         - newman run tests/newman/gasolineras.postman_collection.json
-
