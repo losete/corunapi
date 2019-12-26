@@ -66,15 +66,17 @@ after_success:
   - newman run tests/newman/puntosAgua.postman_collection.json
   - newman run tests/newman/supermercados.postman_collection.json
   # Test to /metrics
-  - curl -i -X GET http://127.0.0.1:8001/metrics
   - newman run tests/newman/metrics.postman_collection.json
   # Test to see if a Request with body gets denied
   - newman run tests/newman/bodyTests.postman_collection.json
   # Test to see if Kong is caching
   - newman run tests/newman/cachePlugin.postman_collection.json
   - newman run tests/newman/caching.postman_collection.json
-  # Test without APIKey
+  # Benchmarking
 
+  # Test without APIKey
+  - curl -X POST http://kong:8001/consumers/corunapi/key-auth -d ''
+  - newman run tests/newman/apikey.postman_collection.json
   #  Creating the configuration file
   - cd $HOME/.dotnet/tools
   - sudo ./kongverge --host:localhost export kongfiles
