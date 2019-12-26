@@ -54,12 +54,17 @@ script:
   - curl -o kong.sh https://gist.githubusercontent.com/losete/29663bd6966fd693df7540fc619f9c15/raw/2561cbe995b39af5e745366faaeaa623ed77ee27/kong.sh
   - chmod +x kong.sh
   - ./kong.sh
-  - newman run tests/newman/gasolineras.postman_collection.json
 
 
 after_success:
   # Unit API tests with newman
   - newman run tests/newman/gasolineras.postman_collection.json
+  - newman run tests/newman/cajeros.postman_collection.json
+  - newman run tests/newman/banos.postman_collection.json
+  - newman run tests/newman/farmacias.postman_collection.json
+  - newman run tests/newman/hospitales.postman_collection.json
+  - newman run tests/newman/puntosAgua.postman_collection.json
+  - newman run tests/newman/supermercados.postman_collection.json
   #  Creating the configuration file
   - cd $HOME/.dotnet/tools
   - sudo ./kongverge --host:localhost export kongfiles

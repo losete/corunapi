@@ -1,0 +1,21 @@
+{
+	"info": {
+		"_postman_id": "15fa502b-c4d5-4410-8cb0-bafdd44fb36e",
+		"name": "farmacias",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "farmacias",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
