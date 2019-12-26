@@ -71,7 +71,8 @@ after_success:
   # Test to see if a Request with body gets denied
   - newman run tests/newman/bodyTests.postman_collection.json
   # Test to see if Kong is caching
-  - newman run tests/newman/bodyTests.postman_collection.json
+  - newman run tests/newman/cachePlugin.postman_collection.json
+  - newman run tests/newman/caching.postman_collection.json
   # Test without APIKey
 
   #  Creating the configuration file
