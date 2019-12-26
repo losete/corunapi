@@ -69,9 +69,9 @@ after_success:
   - curl -i -X GET http://127.0.0.1:8001/metrics
   - newman run tests/newman/metrics.postman_collection.json
   # Test to see if a Request with body gets denied
-
+  - newman run tests/newman/bodyTests.postman_collection.json
   # Test to see if Kong is caching
-
+  - newman run tests/newman/bodyTests.postman_collection.json
   # Test without APIKey
 
   #  Creating the configuration file
