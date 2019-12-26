@@ -30,6 +30,15 @@ install:
   - sudo apt-get update
   - sudo apt-get install -y dotnet-sdk-2.2
   - sudo dotnet tool install kongverge --global
+  # Install siege
+  - wget http://download.joedog.org/siege/siege-latest.tar.gz
+  - tar -zxvf siege-latest.tar.gz
+  - cd siege-*/
+  - sudo apt-get install build-essential
+  - ./configure
+  - make
+  - sudo make install
+  - cd ..
 
 before_script:
   # Configure enviroment and launch Kong
@@ -73,7 +82,18 @@ after_success:
   - newman run tests/newman/cachePlugin.postman_collection.json
   - newman run tests/newman/caching.postman_collection.json
   # Benchmarking
-
+  - siege -t 10S -c 200 http://localhost:8000/gasolineras
+  - siege -t 10S -c 200 http://localhost:8000/gasolineras
+  - siege -t 10S -c 200 http://localhost:8000/gasolineras
+  - siege -t 10S -c 200 http://localhost:8000/gasolineras
+  - siege -t 10S -c 200 http://localhost:8000/gasolineras
+  - siege -t 10S -c 10 http://localhost:8000/gasolineras
+  - siege -t 10S -c 10 http://localhost:8000/gasolineras
+  - siege -t 10S -c 10 http://localhost:8000/gasolineras
+  - siege -t 10S -c 10 http://localhost:8000/gasolineras
+  - siege -t 10S -c 10 http://localhost:8000/gasolineras
+  - siege -t 60S -c 5 http://localhost:8000/gasolineras
+  - siege -t 60S -c 200 http://localhost:8000/gasolineras
   # Test without APIKey
   - curl -X POST http://kong:8001/consumers/corunapi/key-auth -d ''
   - newman run tests/newman/apikey.postman_collection.json
