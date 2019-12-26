@@ -82,17 +82,17 @@ after_success:
   - newman run tests/newman/cachePlugin.postman_collection.json
   - newman run tests/newman/caching.postman_collection.json
   # Benchmarking
-  - siege -t 10S -c 200 -f tests/benchmarks/urls.txt
-  - siege -t 10S -c 200 -f tests/benchmarks/urls.txt
-  - siege -t 10S -c 200 -f tests/benchmarks/urls.txt
-  - siege -t 10S -c 200 -f tests/benchmarks/urls.txt
-  - siege -t 10S -c 200 -f tests/benchmarks/urls.txt
-  - siege -t 10S -c 10 -f tests/benchmarks/urls.txt
-  - siege -t 10S -c 10 -f tests/benchmarks/urls.txt
-  - siege -t 10S -c 10 -f tests/benchmarks/urls.txt
-  - siege -t 10S -c 10 -f tests/benchmarks/urls.txt
-  - siege -t 10S -c 10 -f tests/benchmarks/urls.txt
-  - siege -t 60S -c 5 -f tests/benchmarks/urls.txt
+  - siege -t 10S -c 200 -q -f tests/benchmarks/urls.txt
+  - siege -t 10S -c 200 -q -f tests/benchmarks/urls.txt
+  - siege -t 10S -c 200 -q -f tests/benchmarks/urls.txt
+  - siege -t 10S -c 200 -q -f tests/benchmarks/urls.txt
+  - siege -t 10S -c 200 -q -f tests/benchmarks/urls.txt
+  - siege -t 10S -c 10 -q -f tests/benchmarks/urls.txt
+  - siege -t 10S -c 10 -q -f tests/benchmarks/urls.txt
+  - siege -t 10S -c 10 -q -f tests/benchmarks/urls.txt
+  - siege -t 10S -c 10 -q -f tests/benchmarks/urls.txt
+  - siege -t 10S -c 10 -q -f tests/benchmarks/urls.txt
+  - siege -t 60S -c 5 -q -f tests/benchmarks/urls.txt
   # Test without APIKey
   - curl -X POST http://kong:8001/consumers/corunapi/key-auth -d ''
   - newman run tests/newman/apikey.postman_collection.json
