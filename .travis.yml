@@ -32,7 +32,7 @@ install:
   - sudo dotnet tool install kongverge --global
   # Install siege
   - wget http://download.joedog.org/siege/siege-3.1.4.tar.gz
-  - tar -zxvf siege-latest.tar.gz
+  - tar -zxvf siege-3.1.4.tar.gz
   - cd siege-*/
   - sudo apt-get install build-essential
   - ./configure
@@ -82,8 +82,8 @@ after_success:
   - newman run tests/newman/cachePlugin.postman_collection.json
   - newman run tests/newman/caching.postman_collection.json
   # Benchmarking
-  - siege -t 60S -c 200 -iqf tests/benchmarks/urls.txt
-  - siege -t 60S -c 200 -q http://127.0.0.1:3013/
+  - siege -t 60S -c 250 -iqf tests/benchmarks/urls.txt
+  - siege -t 60S -c 250 -q http://127.0.0.1:3013/
   # Test without APIKey
   - curl -X POST http://localhost:8001/consumers/corunapi/key-auth -d ''
   - newman run tests/newman/apikey.postman_collection.json
