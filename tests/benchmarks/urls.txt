@@ -1,0 +1,7 @@
+http://127.0.0.1:8000/gasolineras
+http://127.0.0.1:8000/fuentes
+http://127.0.0.1:8000/cajeros
+http://127.0.0.1:8000/hospitales
+http://127.0.0.1:8000/farmacias
+http://127.0.0.1:8000/supermercados
+http://127.0.0.1:8000/banos
