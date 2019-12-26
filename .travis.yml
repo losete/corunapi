@@ -65,6 +65,12 @@ after_success:
   - newman run tests/newman/hospitales.postman_collection.json
   - newman run tests/newman/puntosAgua.postman_collection.json
   - newman run tests/newman/supermercados.postman_collection.json
+  # Test to /metrics
+  -
+  # Test to see if a Request with body gets denied
+
+  # Test to see if Kong is caching
+
   #  Creating the configuration file
   - cd $HOME/.dotnet/tools
   - sudo ./kongverge --host:localhost export kongfiles
