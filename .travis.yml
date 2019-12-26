@@ -31,7 +31,7 @@ install:
   - sudo apt-get install -y dotnet-sdk-2.2
   - sudo dotnet tool install kongverge --global
   # Install siege
-  - wget http://download.joedog.org/siege/siege-latest.tar.gz
+  - wget http://download.joedog.org/siege/siege-3.1.4.tar.gz
   - tar -zxvf siege-latest.tar.gz
   - cd siege-*/
   - sudo apt-get install build-essential
