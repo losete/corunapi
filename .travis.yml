@@ -74,14 +74,20 @@ after_success:
   - newman run tests/newman/hospitales.postman_collection.json
   - newman run tests/newman/puntosAgua.postman_collection.json
   - newman run tests/newman/supermercados.postman_collection.json
-  # Test to /metrics
+  # Tests
   - newman run tests/newman/metrics.postman_collection.json
-  # Test to see if a Request with body gets denied
   - newman run tests/newman/bodyTests.postman_collection.json
-  # Test to see if Kong is caching
   - newman run tests/newman/cachePlugin.postman_collection.json
   - newman run tests/newman/caching.postman_collection.json
+  - curl -X POST http://localhost:8001/consumers/corunapi/key-auth -d ''
+  - newman run tests/newman/apikey.postman_collection.json
+  #  Creating the configuration file
+  - cd $HOME/.dotnet/tools
+  - sudo ./kongverge --host:localhost export kongfiles
+
+before_deploy:
   # Benchmarking
+  - curl -X DELETE http://localhost:8001/consumers/corunapi/key-auth
   - siege -t 60S -c 250 -iqf tests/benchmarks/urls.txt
   - siege -t 60S -c 250 -q http://127.0.0.1:3013/
   - siege -t 60S -c 200 -iqf tests/benchmarks/urls.txt
@@ -98,12 +104,7 @@ after_success:
   - siege -t 60S -c 25 -q http://127.0.0.1:3013/
   - siege -t 60S -c 10 -iqf tests/benchmarks/urls.txt
   - siege -t 60S -c 10 -q http://127.0.0.1:3013/
-  # Test without APIKey
   - curl -X POST http://localhost:8001/consumers/corunapi/key-auth -d ''
-  - newman run tests/newman/apikey.postman_collection.json
-  #  Creating the configuration file
-  - cd $HOME/.dotnet/tools
-  - sudo ./kongverge --host:localhost export kongfiles
 
 deploy:
   provider: releases
