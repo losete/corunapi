@@ -85,7 +85,7 @@ after_success:
   - cd $HOME/.dotnet/tools
   - sudo ./kongverge --host:localhost export kongfiles
   - curl -X DELETE http://localhost:8001/consumers/corunapi/key-auth
-  - siege -t 10S -c 250 -q "http://www.mapabase.es/arcgis/rest/services/Otros/Gasolineras/FeatureServer/0/query?where=localidad+%3D+%27CORUÑA+%28A%29%27&outFields=latitud,longitud,horario,dirección,rótulo&f=json"
+  - siege -t 10S -c 10 -q "http://www.mapabase.es/arcgis/rest/services/Otros/Gasolineras/FeatureServer/0/query?where=localidad+%3D+%27CORUÑA+%28A%29%27&outFields=latitud,longitud,horario,dirección,rótulo&f=json"
 
 before_deploy:
   # Benchmarking
