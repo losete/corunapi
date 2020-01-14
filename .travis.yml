@@ -80,6 +80,7 @@ after_success:
   - newman run tests/newman/cachePlugin.postman_collection.json
   - newman run tests/newman/caching.postman_collection.json
   - curl -X POST http://localhost:8001/consumers/corunapi/key-auth -d '13rue13a12345'
+  - curl -X POST http://localhost:8001/plugins --data "name=key-auth"
   - newman run tests/newman/apikey.postman_collection.json
   #  Creating the configuration file
   - cd $HOME/.dotnet/tools
@@ -104,7 +105,6 @@ before_deploy:
   - siege -t 60S -c 10 -iqf tests/benchmarks/urls.txt
   - siege -t 60S -c 10 -q http://127.0.0.1:3013/
   - siege -t 60S -c 10 -q "http://www.mapabase.es/arcgis/rest/services/Otros/Gasolineras/FeatureServer/0/query?where=localidad+%3D+%27CORUÑA+%28A%29%27&outFields=latitud,longitud,horario,dirección,rótulo&f=json"
-  - curl -X POST http://localhost:8001/consumers/corunapi/key-auth -d ''
 
 deploy:
   provider: releases
