@@ -1,7 +1,7 @@
-http://127.0.0.1:8000/gasolineras
-http://127.0.0.1:8000/fuentes
-http://127.0.0.1:8000/cajeros
-http://127.0.0.1:8000/hospitales
-http://127.0.0.1:8000/farmacias
-http://127.0.0.1:8000/supermercados
-http://127.0.0.1:8000/banos
+http://127.0.0.1:8000/gasolineras?apikey=13rue13a12345
+http://127.0.0.1:8000/fuentes?apikey=13rue13a12345
+http://127.0.0.1:8000/cajeros?apikey=13rue13a12345
+http://127.0.0.1:8000/hospitales?apikey=13rue13a12345
+http://127.0.0.1:8000/farmacias?apikey=13rue13a12345
+http://127.0.0.1:8000/supermercados?apikey=13rue13a12345
+http://127.0.0.1:8000/banos?apikey=13rue13a12345

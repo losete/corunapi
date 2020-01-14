@@ -79,7 +79,7 @@ after_success:
   - newman run tests/newman/bodyTests.postman_collection.json
   - newman run tests/newman/cachePlugin.postman_collection.json
   - newman run tests/newman/caching.postman_collection.json
-  - curl -X POST http://localhost:8001/consumers/corunapi/key-auth -d ''
+  - curl -X POST http://localhost:8001/consumers/corunapi/key-auth -d '13rue13a12345'
   - newman run tests/newman/apikey.postman_collection.json
   #  Creating the configuration file
   - cd $HOME/.dotnet/tools
@@ -87,7 +87,6 @@ after_success:
 
 before_deploy:
   # Benchmarking
-  - curl -X DELETE http://localhost:8001/consumers/corunapi/key-auth
   - siege -t 60S -c 250 -iqf tests/benchmarks/urls.txt
   - siege -t 60S -c 250 -q http://127.0.0.1:3013/
   - siege -t 60S -c 200 -iqf tests/benchmarks/urls.txt
