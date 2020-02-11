@@ -76,6 +76,13 @@ script:
   - cd apictl
   - ./apictl add-env -e production --registration https://localhost:9443/client-registration/v0.15/register --apim https://localhost:9443 --token https://localhost:8243/token --admin https://localhost:9443/api/am/admin/v0.15 --api_list https://localhost:9443/api/am/publisher/v1.0/apis --app_list https://localhost:9443/api/am/store/v1.0/applications
   - ./apictl import-api --file apis/Banos_1.0.0.zip --environment production -k &
+  - ./apictl import-api --file apis/Gasolineras_1.0.0.zip --environment production -k &
+  - ./apictl import-api --file apis/Farmacias_1.0.0.zip --environment production -k &
+  - ./apictl import-api --file apis/Fuentes_1.0.0.zip --environment production -k &
+  - ./apictl import-api --file apis/Cajeros_1.0.0.zip --environment production -k &
+  - ./apictl import-api --file apis/Hospitales_1.0.0.zip --environment production -k &
+  - ./apictl import-api --file apis/Supermercados_1.0.0.zip --environment production -k &
+  - ./apictl import-app --file apps/admin.zip --environment production -k &
 
 
 after_success:
