@@ -42,9 +42,9 @@ const server = http.createServer((req, res) => {
 
 server.listen(port, hostname, () => {
   var tmp = [];
-  var tmpCoor = new Object();
-  locations.ATMLocations.query(requestData
-  , function (error, data) {
+  var tmpCoor = {};
+  locations.ATMLocations.query(requestData,
+    function (error, data) {
       if (error) {
           err("HttpStatus: "+error.getHttpStatus());
           err("Message: "+error.getMessage());
@@ -53,17 +53,17 @@ server.listen(port, hostname, () => {
           err(error);
       }
       else {
-      var json = [];
+        var json = [];
         console.log();
-        for (var i = 0; i < data['Atms']['Atm'].length; i++) {
-          json = data['Atms']['Atm'][i]['Location']['Point'];
-          tmpCoor.x = json['Longitude'];
-          tmpCoor.y = json['Latitude'];
+        for (var i = 0; i < data.Atms.Atm.length; i++) {
+          json = data.Atms.Atm[i].Location.Point;
+          tmpCoor.x = json.Longitude;
+          tmpCoor.y = json.Latitude;
           tmp.push(tmpCoor);
-          console.log(tmpCoor.x);
-          tmpCoor = new Object();
+          tmpCoor = {};
         }
         datos = tmp;
       }
-  });
+    }
+  );
 });

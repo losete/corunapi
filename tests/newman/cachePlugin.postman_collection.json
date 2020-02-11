@@ -1,0 +1,47 @@
+{
+	"info": {
+		"_postman_id": "e449827f-fb0f-4d42-a923-7e86c8c0a86d",
+		"name": "cachePlugin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "cachePlugin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "45f62fa0-3c1c-41eb-ad85-88542b0ddd4a",
+						"exec": [
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"name\\\":\\\"proxy-cache\\\"\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"memory\\\":{\\\"dictionary_name\\\":\\\"kong_db_cache\\\"}\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8001/plugins",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"plugins"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

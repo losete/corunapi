@@ -1,0 +1,21 @@
+{
+	"info": {
+		"_postman_id": "89c869a8-813e-4d99-87fb-00e2d5b96d72",
+		"name": "hospitales",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "hospitales",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

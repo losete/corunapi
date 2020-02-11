@@ -1,0 +1,21 @@
+{
+	"info": {
+		"_postman_id": "1b62e7cf-768d-40e1-9974-54db27920aa6",
+		"name": "cajeros",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "atms",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,52 @@
+{
+	"info": {
+		"_postman_id": "86581543-698c-4b2c-9308-817def3213a1",
+		"name": "gasolineras",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Gasolineras",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "121c4096-bb5f-4eac-919a-9f21879f92eb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"x\\\": -8.\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"y\\\": 43.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/gasolineras",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"gasolineras"
+					]
+				},
+				"description": "Obtener información gasolineras Coruña"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
