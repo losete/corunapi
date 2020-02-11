@@ -84,7 +84,7 @@ script:
   - ./apictl import-api --file apis/Cajeros_1.0.0.zip --environment production -k &
   - ./apictl import-api --file apis/Hospitales_1.0.0.zip --environment production -k &
   - ./apictl import-api --file apis/Supermercados_1.0.0.zip --environment production -k &
-
+  - curl -X GET "https://localhost:8243/gasolineras/1.0.0/" -H "accept: */*" -H "Authorization: Bearer 8276baee-f0bf-3522-a5e2-244576531b91" -k
 
 after_success:
   # Unit API tests with newman
