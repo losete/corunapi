@@ -70,6 +70,10 @@ script:
   - curl -o kong.sh https://gist.githubusercontent.com/losete/29663bd6966fd693df7540fc619f9c15/raw/2561cbe995b39af5e745366faaeaa623ed77ee27/kong.sh
   - chmod +x kong.sh
   - ./kong.sh
+  - mv APIs apictl/APIs
+  - cd apictl
+  - ./apictl add-env -e production --registration https://localhost:9443/client-registration/v0.15/register --apim https://localhost:9443 --token https://localhost:8243/token --admin https://localhost:9443/api/am/admin/v0.15 --api_list https://localhost:9443/api/am/publisher/v1.0/apis --app_list https://localhost:9443/api/am/store/v1.0/applications
+  - ./apictl import-api --file APIs/Banos_1.0.0.zip --environment production -k
 
 
 after_success:
