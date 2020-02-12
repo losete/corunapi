@@ -78,15 +78,15 @@ script:
   - ./apictl login production -u admin -p admin -k
   - ./apictl import-api --file apis/Banos_1.0.0.zip --environment production -k &
   - sleep 2
-  # - ./apictl import-api --file apis/Gasolineras_1.0.0.zip --environment production -k &
+  - ./apictl import-api --file apis/Gasolineras_1.0.0.zip --environment production -k &
+  - sleep 2
   - ./apictl import-api --file apis/Farmacias_1.0.0.zip --environment production -k &
   - sleep 2
   - ./apictl import-api --file apis/Fuentes_1.0.0.zip --environment production -k &
   - sleep 2
   - ./apictl import-api --file apis/Cajeros_1.0.0.zip --environment production -k &
   - sleep 2
-  - ./apictl import-api --file apis/Hospitales_1.0.0.zip --environment production -k &
-  - sleep 2
+  # - ./apictl import-api --file apis/Hospitales_1.0.0.zip --environment production -k &
   - ./apictl import-api --file apis/Supermercados_1.0.0.zip --environment production -k &
   - sleep 2
   # - sleep 20
