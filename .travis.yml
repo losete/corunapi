@@ -87,7 +87,7 @@ script:
   - ./apictl list apis -e production -k
   - ./apictl import-app --file apps/admin.zip --environment production -k
   - ./apictl get-keys -n Banos -v 1.0.0 --provider admin -e production
-  - "curl -X GET 'https://localhost:8243/gasolineras/1.0.0/' -H 'Authorization: Bearer 8276baee-f0bf-3522-a5e2-244576531b91' -k -H 'accept: */*'"
+  - "curl -k -X POST https://localhost:8243/token -d 'grant_type=password&username=admin&password=admin' -H 'Authorization: Basic cVhCNXQ4OXpoRl9FdV9DRm1YckZBWDRaZFlrYTpQODdCVzNEYndTeU1oUzUxOVlWYkkxZngyTkFh0'"
 
 after_success:
   # Unit API tests with newman
