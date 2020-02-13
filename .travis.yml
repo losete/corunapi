@@ -65,13 +65,17 @@ before_script:
   - node src/pharmacies_locations.js &
   - node src/wc_locations.js &
   - node src/water_locations.js &
+
+script:
+  - curl -o kong.sh https://gist.githubusercontent.com/losete/29663bd6966fd693df7540fc619f9c15/raw/2561cbe995b39af5e745366faaeaa623ed77ee27/kong.sh
+  - chmod +x kong.sh
+  - ./kong.sh
   - mv wso2/apis apictl/apis
   - mv wso2/apps apictl/apps
   - cd apictl
   - ./apictl add-env -e production --registration https://localhost:9443/client-registration/v0.15/register --apim https://localhost:9443 --token https://localhost:8243/token --admin https://localhost:9443/api/am/admin/v0.15 --api_list https://localhost:9443/api/am/publisher/v1.0/apis --app_list https://localhost:9443/api/am/store/v1.0/applications
   - ./apictl login production -u admin -p admin -k
   - ./apictl import-api --file apis/Banos_1.0.0.zip --environment production -k
-  - ./apictl get-keys -n Banos -v 1.0.0 --provider admin -e production
   - ./apictl import-api --file apis/Gasolineras_1.0.0.zip --environment production -k
   - ./apictl import-api --file apis/Farmacias_1.0.0.zip --environment production -k
   - ./apictl import-api --file apis/Fuentes_1.0.0.zip --environment production -k
@@ -80,12 +84,6 @@ before_script:
   - ./apictl import-api --file apis/Supermercados_1.0.0.zip --environment production -k
   - ./apictl import-app --file apps/admin.zip --environment production -k
   - token=`echo '{"access_token":"a354069a-eea2-323a-b77d-ba7245b79ed0","refresh_token":"9acba15f-7685-331b-9a9f-3389d1bfd696","scope":"default","token_type":"Bearer","expires_in":3600}' | jq -r '.access_token'`
-
-
-script:
-  - curl -o kong.sh https://gist.githubusercontent.com/losete/29663bd6966fd693df7540fc619f9c15/raw/2561cbe995b39af5e745366faaeaa623ed77ee27/kong.sh
-  - chmod +x kong.sh
-  - ./kong.sh
   - echo $token
 
 after_success:
