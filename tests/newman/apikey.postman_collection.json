@@ -7,11 +7,92 @@
 	"item": [
 		{
 			"name": "apikey",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "923e11ce-3063-48b3-aa80-17bf314124ba",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "63f5c572-65ad-4d0b-9203-7046489210c3",
+						"exec": [
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"No API key found in request\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8000/gasolineras",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"gasolineras"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WSO2_auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "13461367-51fe-49c7-a108-6dce5f335a84",
+						"exec": [
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Invalid Credentials.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:8243/gasolineras/1.0.0/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8243",
+					"path": [
+						"gasolineras",
+						"1.0.0",
+						""
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
 				}
 			},
 			"response": []
