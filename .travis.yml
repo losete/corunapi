@@ -85,6 +85,7 @@ script:
   - ./apictl import-app --file apps/admin.zip --environment production -k
   - token=`echo '{"access_token":"a354069a-eea2-323a-b77d-ba7245b79ed0","refresh_token":"9acba15f-7685-331b-9a9f-3389d1bfd696","scope":"default","token_type":"Bearer","expires_in":3600}' | jq -r '.access_token'`
   - cd ..
+  - echo $token
   - newman run tests/newman/banos.postman_collection.json --insecure
 
 
