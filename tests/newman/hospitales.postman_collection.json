@@ -7,11 +7,90 @@
 	"item": [
 		{
 			"name": "hospitales",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1b338bed-7ce4-43a3-93d6-c44b5629521b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"x\\\": -8.\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"y\\\": 43.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8000/hospitales",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"hospitales"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WSO2_hospitales",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4c2bfce4-fb95-4d54-b2f5-18e8f56050c5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"x\\\": -8.\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"y\\\": 43.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:8243/hospitales/1.0.0/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8243",
+					"path": [
+						"hospitales",
+						"1.0.0",
+						""
+					]
 				}
 			},
 			"response": []

@@ -7,11 +7,90 @@
 	"item": [
 		{
 			"name": "puntosAgua",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ad726d1e-6182-419a-8e91-aed1ef0312d3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"x\\\": -8.\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"y\\\": 43.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8000/fuentes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"fuentes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WSO2_agua",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b55ee6dc-cff7-4e37-b1bc-fc560f0a7726",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"x\\\": -8.\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"y\\\": 43.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:8243/fuentes/1.0.0/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8243",
+					"path": [
+						"fuentes",
+						"1.0.0",
+						""
+					]
 				}
 			},
 			"response": []
