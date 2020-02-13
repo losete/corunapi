@@ -86,18 +86,17 @@ script:
   - "curl -k -X POST https://localhost:8243/token -d 'grant_type=password&username=admin&password=admin' -H 'Authorization: Basic cVhCNXQ4OXpoRl9FdV9DRm1YckZBWDRaZFlrYTpQODdCVzNEYndTeU1oUzUxOVlWYkkxZngyTkFh0' > token.txt"
   - token=`cat token.txt | jq -r '.access_token'`
   - cd ..
-  - newman run tests/newman/banos.postman_collection.json --insecure --global-var "token=$token"
 
 
 after_success:
   # Unit API tests with newman
-  - newman run tests/newman/gasolineras.postman_collection.json
-  - newman run tests/newman/cajeros.postman_collection.json
-  - newman run tests/newman/banos.postman_collection.json
-  - newman run tests/newman/farmacias.postman_collection.json
-  - newman run tests/newman/hospitales.postman_collection.json
-  - newman run tests/newman/puntosAgua.postman_collection.json
-  - newman run tests/newman/supermercados.postman_collection.json
+  - newman run tests/newman/banos.postman_collection.json --insecure --global-var "token=$token"
+  - newman run tests/newman/gasolineras.postman_collection.json --insecure --global-var "token=$token"
+  - newman run tests/newman/cajeros.postman_collection.json --insecure --global-var "token=$token"
+  - newman run tests/newman/farmacias.postman_collection.json --insecure --global-var "token=$token"
+  - newman run tests/newman/hospitales.postman_collection.json --insecure --global-var "token=$token"
+  - newman run tests/newman/puntosAgua.postman_collection.json --insecure --global-var "token=$token"
+  - newman run tests/newman/supermercados.postman_collection.json --insecure --global-var "token=$token"
   # Plugin tests
   - newman run tests/newman/metrics.postman_collection.json
   - newman run tests/newman/bodyTests.postman_collection.json
