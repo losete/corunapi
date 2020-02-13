@@ -11,9 +11,9 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "0fe58532-92de-4e01-9f85-0eba45e6170c",
+						"id": "b94d649d-f216-449a-9d9d-970f28286531",
 						"exec": [
-							"pm.sendRequest(\"http://localhost:8000/gasolineras?apikey=PQvIynyWLRzFqR4oxy7ffbFmLKhPhYOy\", function (err, response) {",
+							"pm.sendRequest(\"http://localhost:8000/gasolineras\", function (err, response) {",
 							"    console.log(response.json());",
 							"});"
 						],
@@ -23,7 +23,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "8a113d34-bf03-4d38-a0b1-7bb2a73369f7",
+						"id": "dc62db43-1901-40dd-96e5-41daabd925be",
 						"exec": [
 							"pm.test(\"Response time is less than 200ms\", function () {",
 							"    pm.expect(pm.response.responseTime).to.be.below(200);",
@@ -37,7 +37,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/gasolineras?apikey=PQvIynyWLRzFqR4oxy7ffbFmLKhPhYOy",
+					"raw": "http://localhost:8000/gasolineras",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -45,12 +45,47 @@
 					"port": "8000",
 					"path": [
 						"gasolineras"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WSO2_caching",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f69b5e61-b43f-42ac-9a62-a6d0d8aa1c24",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:8243/gasolineras/1.0.0/",
+					"protocol": "https",
+					"host": [
+						"localhost"
 					],
-					"query": [
-						{
-							"key": "apikey",
-							"value": "PQvIynyWLRzFqR4oxy7ffbFmLKhPhYOy"
-						}
+					"port": "8243",
+					"path": [
+						"gasolineras",
+						"1.0.0",
+						""
 					]
 				}
 			},
