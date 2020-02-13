@@ -65,6 +65,11 @@ before_script:
   - node src/pharmacies_locations.js &
   - node src/wc_locations.js &
   - node src/water_locations.js &
+
+script:
+  - curl -o kong.sh https://gist.githubusercontent.com/losete/29663bd6966fd693df7540fc619f9c15/raw/2561cbe995b39af5e745366faaeaa623ed77ee27/kong.sh
+  - chmod +x kong.sh
+  - ./kong.sh
   - mv wso2/apis apictl/apis
   - mv wso2/apps apictl/apps
   - cd apictl
@@ -79,17 +84,11 @@ before_script:
   - ./apictl import-api --file apis/Supermercados_1.0.0.zip --environment production -k
   - ./apictl import-app --file apps/admin.zip --environment production -k
   - token=`echo '{"access_token":"a354069a-eea2-323a-b77d-ba7245b79ed0","refresh_token":"9acba15f-7685-331b-9a9f-3389d1bfd696","scope":"default","token_type":"Bearer","expires_in":3600}' | jq -r '.access_token'`
-  - echo $token
+  - newman run tests/newman/banos.postman_collection.json
 
-script:
-  - echo $token
-  - curl -o kong.sh https://gist.githubusercontent.com/losete/29663bd6966fd693df7540fc619f9c15/raw/2561cbe995b39af5e745366faaeaa623ed77ee27/kong.sh
-  - chmod +x kong.sh
-  - ./kong.sh
 
 after_success:
   # Unit API tests with newman
-  - echo $token
   - newman run tests/newman/gasolineras.postman_collection.json
   - newman run tests/newman/cajeros.postman_collection.json
   - newman run tests/newman/banos.postman_collection.json

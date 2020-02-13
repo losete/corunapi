@@ -15,6 +15,60 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "WSO2_banos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "691fbecf-4112-4b7c-9d30-a8f553cea899",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"x\\\": -8.\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"y\\\": 43.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "a354069a-eea2-323a-b77d-ba7245b79ed0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:8243/banos/1.0.0/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8243",
+					"path": [
+						"banos",
+						"1.0.0",
+						""
+					]
+				},
+				"description": "Same request to WSO2"
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
