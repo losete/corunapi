@@ -83,9 +83,9 @@ script:
   - ./apictl import-api --file apis/Hospitales_1.0.0.zip --environment production -k
   - ./apictl import-api --file apis/Supermercados_1.0.0.zip --environment production -k
   - ./apictl import-app --file apps/admin.zip --environment production -k
+  - cd ..
   - "curl -k -X POST https://localhost:8243/token -d 'grant_type=password&username=admin&password=admin' -H 'Authorization: Basic cVhCNXQ4OXpoRl9FdV9DRm1YckZBWDRaZFlrYTpQODdCVzNEYndTeU1oUzUxOVlWYkkxZngyTkFh0' > token.txt"
   - token=`cat token.txt | jq -r '.access_token'`
-  - cd ..
 
 
 after_success:
