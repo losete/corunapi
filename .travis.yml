@@ -88,6 +88,7 @@ script:
 
 
 after_success:
+  - token=`cat token.txt | jq -r '.access_token'`
   # Unit API tests with newman
   - newman run tests/newman/banos.postman_collection.json --insecure --global-var "token=$token"
   - newman run tests/newman/gasolineras.postman_collection.json --insecure --global-var "token=$token"
@@ -97,26 +98,18 @@ after_success:
   - newman run tests/newman/puntosAgua.postman_collection.json --insecure --global-var "token=$token"
   - newman run tests/newman/supermercados.postman_collection.json --insecure --global-var "token=$token"
   # Plugin tests
-  - newman run tests/newman/metrics.postman_collection.json
-  - newman run tests/newman/bodyTests.postman_collection.json
-  - newman run tests/newman/cachePlugin.postman_collection.json
-  - newman run tests/newman/caching.postman_collection.json
+  - newman run tests/newman/metrics.postman_collection.json --insecure --global-var "token=$token"
+  - newman run tests/newman/bodyTests.postman_collection.json --insecure --global-var "token=$token"
+  - newman run tests/newman/cachePlugin.postman_collection.json --insecure --global-var "token=$token"
+  - newman run tests/newman/caching.postman_collection.json --insecure --global-var "token=$token"
   - curl -X POST http://localhost:8001/consumers/corunapi/key-auth -d '13rue13a12345'
   - curl -X POST http://localhost:8001/plugins --data "name=key-auth"
-  - newman run tests/newman/apikey.postman_collection.json
+  - newman run tests/newman/apikey.postman_collection.json --insecure --global-var "token=$token"
   #  Creating the configuration file
   - cd $HOME/.dotnet/tools
   - sudo ./kongverge --host:localhost export kongfiles
   - cd ../..
-  - token=`cat token.txt | jq -r '.access_token'`
   - "siege -t 60S -c 250 -q https://localhost:8243/gasolineras/1.0.0/ -H 'accept: */*' -H \"Authorization: Bearer $token\""
-  - "siege -t 60S -c 200 -q https://localhost:8243/gasolineras/1.0.0/ -H 'accept: */*' -H \"Authorization: Bearer $token\""
-  - "siege -t 60S -c 150 -q https://localhost:8243/gasolineras/1.0.0/ -H 'accept: */*' -H \"Authorization: Bearer $token\""
-  - "siege -t 60S -c 100 -q https://localhost:8243/gasolineras/1.0.0/ -H 'accept: */*' -H 'Authorization: Bearer $token'"
-  - "siege -t 60S -c 75 -q https://localhost:8243/gasolineras/1.0.0/ -H 'accept: */*' -H 'Authorization: Bearer $token'"
-  - "siege -t 60S -c 50 -q https://localhost:8243/gasolineras/1.0.0/ -H 'accept: */*' -H 'Authorization: Bearer $token'"
-  - "siege -t 60S -c 25 -q https://localhost:8243/gasolineras/1.0.0/ -H 'accept: */*' -H 'Authorization: Bearer $token'"
-  - "siege -t 60S -c 10 -q https://localhost:8243/gasolineras/1.0.0/ -H 'accept: */*' -H 'Authorization: Bearer $token'"
 
 before_deploy:
   # Benchmarking
