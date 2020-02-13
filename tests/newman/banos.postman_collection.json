@@ -38,21 +38,30 @@
 						],
 						"type": "text/javascript"
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9b4b3ef8-b69f-4346-9885-52e928b95957",
+						"exec": [
+							"pm.globals.get(\"token\");"
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "a354069a-eea2-323a-b77d-ba7245b79ed0",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "https://localhost:8243/banos/1.0.0/",
 					"protocol": "https",
