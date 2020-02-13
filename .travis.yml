@@ -87,10 +87,12 @@ script:
   - ./apictl list apis -e production -k
   - ./apictl import-app --file apps/admin.zip --environment production -k
   - ./apictl get-keys -n Banos -v 1.0.0 --provider admin -e production
-  - "curl -k -X POST https://localhost:8243/token -d 'grant_type=password&username=admin&password=admin' -H 'Authorization: Basic cVhCNXQ4OXpoRl9FdV9DRm1YckZBWDRaZFlrYTpQODdCVzNEYndTeU1oUzUxOVlWYkkxZngyTkFh0'"
+  - token=`echo '{"access_token":"a354069a-eea2-323a-b77d-ba7245b79ed0","refresh_token":"9acba15f-7685-331b-9a9f-3389d1bfd696","scope":"default","token_type":"Bearer","expires_in":3600}' | jq -r '.access_token'`
+  - echo $token
 
 after_success:
   # Unit API tests with newman
+  - echo $token
   - newman run tests/newman/gasolineras.postman_collection.json
   - newman run tests/newman/cajeros.postman_collection.json
   - newman run tests/newman/banos.postman_collection.json
