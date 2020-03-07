@@ -96,6 +96,40 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "apigee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e9173a53-13d7-49fb-acf1-66d6b3fe62e7",
+						"exec": [
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Failed to resolve API Key variable\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://cmiguel-eval-test.apigee.net/gasolineras",
+					"protocol": "https",
+					"host": [
+						"cmiguel-eval-test",
+						"apigee",
+						"net"
+					],
+					"path": [
+						"gasolineras"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
