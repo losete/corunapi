@@ -94,6 +94,54 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "apigee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6145ab09-d3b2-41a4-88ce-e5d40c38543a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"x\\\": -8.\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"y\\\": 43.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://cmiguel-eval-test.apigee.net/farmacias?apikey=sKFn6fhjFdSdPGszeCyzonNpeP5ndlyT",
+					"protocol": "https",
+					"host": [
+						"cmiguel-eval-test",
+						"apigee",
+						"net"
+					],
+					"path": [
+						"farmacias"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "sKFn6fhjFdSdPGszeCyzonNpeP5ndlyT"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}

@@ -104,6 +104,54 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "apigee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1268123d-2ec1-4101-846f-3d8f09891ef8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"x\\\": -8.\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"y\\\": 43.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://cmiguel-eval-test.apigee.net/gasolineras?apikey=sKFn6fhjFdSdPGszeCyzonNpeP5ndlyT",
+					"protocol": "https",
+					"host": [
+						"cmiguel-eval-test",
+						"apigee",
+						"net"
+					],
+					"path": [
+						"gasolineras"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "sKFn6fhjFdSdPGszeCyzonNpeP5ndlyT"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}

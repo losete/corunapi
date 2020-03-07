@@ -94,6 +94,54 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "apigee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e5027fe5-f17c-41f9-b1e1-39c764333a5d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"x\\\": -8.\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"y\\\": 43.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://cmiguel-eval-test.apigee.net/hospitales?apikey=sKFn6fhjFdSdPGszeCyzonNpeP5ndlyT",
+					"protocol": "https",
+					"host": [
+						"cmiguel-eval-test",
+						"apigee",
+						"net"
+					],
+					"path": [
+						"hospitales"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "sKFn6fhjFdSdPGszeCyzonNpeP5ndlyT"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
