@@ -132,6 +132,15 @@ before_deploy:
   - siege -t 60S -c 10 -q http://127.0.0.1:3013/
   # WSO2
   # Not possible because WSO2 can't handle the concurrency
+  # Apigee
+  # - siege -t 60S -c 250 -iqf tests/benchmarks/urls.txt
+  # - siege -t 60S -c 200 -iqf tests/benchmarks/urls.txt
+  # - siege -t 60S -c 150 -iqf tests/benchmarks/urls.txt
+  # - siege -t 60S -c 100 -iqf tests/benchmarks/urls.txt
+  # - siege -t 60S -c 75 -iqf tests/benchmarks/urls.txt
+  # - siege -t 60S -c 50 -iqf tests/benchmarks/urls.txt
+  # - siege -t 60S -c 25 -iqf tests/benchmarks/urls.txt
+  - siege -t 5S -c 10 -iqf https://cmiguel-eval-test.apigee.net/gasolineras?apikey=sKFn6fhjFdSdPGszeCyzonNpeP5ndlyT
   # Directly
   - siege -t 10S -c 250 -q "http://www.mapabase.es/arcgis/rest/services/Otros/Gasolineras/FeatureServer/0/query?where=localidad+%3D+%27CORUÑA+%28A%29%27&outFields=latitud,longitud,horario,dirección,rótulo&f=json"
   - siege -t 10S -c 10 -q "http://www.mapabase.es/arcgis/rest/services/Otros/Gasolineras/FeatureServer/0/query?where=localidad+%3D+%27CORUÑA+%28A%29%27&outFields=latitud,longitud,horario,dirección,rótulo&f=json"
