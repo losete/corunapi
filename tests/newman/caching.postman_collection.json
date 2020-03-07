@@ -90,6 +90,46 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "apigee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "32e89236-816a-449d-93a8-ca271b9750eb",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://cmiguel-eval-test.apigee.net/gasolineras?apikey=sKFn6fhjFdSdPGszeCyzonNpeP5ndlyT",
+					"protocol": "https",
+					"host": [
+						"cmiguel-eval-test",
+						"apigee",
+						"net"
+					],
+					"path": [
+						"gasolineras"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "sKFn6fhjFdSdPGszeCyzonNpeP5ndlyT"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
