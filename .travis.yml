@@ -22,6 +22,10 @@ install:
   - sudo apt-key add bintray.key
   - sudo apt-get update
   - sudo apt-get install -y kong
+  # Install WSO2 3.0
+  - sudo wget https://product-dist.wso2.com/downloads/api-manager/3.0.0/downloader/wso2am-linux-installer-x64-3.0.0.deb
+  - sudo apt install ./wso2am-linux-installer-x64-3.0.0.deb
+  - sudo wso2am-3.0.0 &
   # Install kongverge
   - wget -q https://packages.microsoft.com/config/ubuntu/19.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
   - sudo dpkg -i packages-microsoft-prod.deb
@@ -30,6 +34,9 @@ install:
   - sudo apt-get update
   - sudo apt-get install -y dotnet-sdk-2.2
   - sudo dotnet tool install kongverge --global
+  # Download apictl binary
+  - sudo wget https://product-dist.wso2.com/downloads/api-manager/cli/3.0.1/apictl-3.0.1-linux-x64.tar.gz
+  - tar -xvzf apictl-3.0.1-linux-x64.tar.gz
   # Install siege
   - wget http://download.joedog.org/siege/siege-3.1.4.tar.gz
   - tar -zxvf siege-3.1.4.tar.gz
@@ -63,31 +70,50 @@ script:
   - curl -o kong.sh https://gist.githubusercontent.com/losete/29663bd6966fd693df7540fc619f9c15/raw/2561cbe995b39af5e745366faaeaa623ed77ee27/kong.sh
   - chmod +x kong.sh
   - ./kong.sh
+  - mv wso2/apis apictl/apis
+  - mv wso2/apps apictl/apps
+  - cd apictl
+  - ./apictl add-env -e production --registration https://localhost:9443/client-registration/v0.15/register --apim https://localhost:9443 --token https://localhost:8243/token --admin https://localhost:9443/api/am/admin/v0.15 --api_list https://localhost:9443/api/am/publisher/v1.0/apis --app_list https://localhost:9443/api/am/store/v1.0/applications
+  - ./apictl login production -u admin -p admin -k
+  - ./apictl import-api --file apis/Banos_1.0.0.zip --environment production -k
+  - ./apictl import-api --file apis/Gasolineras_1.0.0.zip --environment production -k
+  - ./apictl import-api --file apis/Farmacias_1.0.0.zip --environment production -k
+  - ./apictl import-api --file apis/Fuentes_1.0.0.zip --environment production -k
+  - ./apictl import-api --file apis/Cajeros_1.0.0.zip --environment production -k
+  - ./apictl import-api --file apis/Hospitales_1.0.0.zip --environment production -k
+  - ./apictl import-api --file apis/Supermercados_1.0.0.zip --environment production -k
+  - ./apictl import-app --file apps/admin.zip --environment production -k
+  - cd ..
+  - "curl -k -X POST https://localhost:8243/token -d 'grant_type=password&username=admin&password=admin' -H 'Authorization: Basic cVhCNXQ4OXpoRl9FdV9DRm1YckZBWDRaZFlrYTpQODdCVzNEYndTeU1oUzUxOVlWYkkxZngyTkFh0' > token.txt"
+  - token=`cat token.txt | jq -r '.access_token'`
 
 
 after_success:
+  - token=`cat token.txt | jq -r '.access_token'`
   # Unit API tests with newman
-  - newman run tests/newman/gasolineras.postman_collection.json
-  - newman run tests/newman/cajeros.postman_collection.json
-  - newman run tests/newman/banos.postman_collection.json
-  - newman run tests/newman/farmacias.postman_collection.json
-  - newman run tests/newman/hospitales.postman_collection.json
-  - newman run tests/newman/puntosAgua.postman_collection.json
-  - newman run tests/newman/supermercados.postman_collection.json
+  - newman run tests/newman/banos.postman_collection.json --insecure --global-var "token=$token"
+  - newman run tests/newman/gasolineras.postman_collection.json --insecure --global-var "token=$token"
+  - newman run tests/newman/cajeros.postman_collection.json --insecure --global-var "token=$token"
+  - newman run tests/newman/farmacias.postman_collection.json --insecure --global-var "token=$token"
+  - newman run tests/newman/hospitales.postman_collection.json --insecure --global-var "token=$token"
+  - newman run tests/newman/puntosAgua.postman_collection.json --insecure --global-var "token=$token"
+  - newman run tests/newman/supermercados.postman_collection.json --insecure --global-var "token=$token"
   # Plugin tests
-  - newman run tests/newman/metrics.postman_collection.json
-  - newman run tests/newman/bodyTests.postman_collection.json
-  - newman run tests/newman/cachePlugin.postman_collection.json
-  - newman run tests/newman/caching.postman_collection.json
+  - newman run tests/newman/metrics.postman_collection.json --insecure --global-var "token=$token"
+  - newman run tests/newman/bodyTests.postman_collection.json --insecure --global-var "token=$token"
+  - newman run tests/newman/cachePlugin.postman_collection.json --insecure --global-var "token=$token"
+  - newman run tests/newman/caching.postman_collection.json --insecure --global-var "token=$token"
   - curl -X POST http://localhost:8001/consumers/corunapi/key-auth -d '13rue13a12345'
   - curl -X POST http://localhost:8001/plugins --data "name=key-auth"
-  - newman run tests/newman/apikey.postman_collection.json
+  - newman run tests/newman/apikey.postman_collection.json --insecure --global-var "token=$token"
   #  Creating the configuration file
   - cd $HOME/.dotnet/tools
   - sudo ./kongverge --host:localhost export kongfiles
+  - cd ../..
 
 before_deploy:
   # Benchmarking
+  # Kong + Node
   - siege -t 60S -c 250 -iqf tests/benchmarks/urls.txt
   - siege -t 60S -c 250 -q http://127.0.0.1:3013/
   - siege -t 60S -c 200 -iqf tests/benchmarks/urls.txt
@@ -104,7 +130,11 @@ before_deploy:
   - siege -t 60S -c 25 -q http://127.0.0.1:3013/
   - siege -t 60S -c 10 -iqf tests/benchmarks/urls.txt
   - siege -t 60S -c 10 -q http://127.0.0.1:3013/
-  - siege -t 60S -c 250 -q "http://www.mapabase.es/arcgis/rest/services/Otros/Gasolineras/FeatureServer/0/query?where=localidad+%3D+%27CORUÑA+%28A%29%27&outFields=latitud,longitud,horario,dirección,rótulo&f=json"
+  # WSO2
+  # Not possible because WSO2 can't handle the concurrency
+  # Directly
+  - siege -t 10S -c 250 -q "http://www.mapabase.es/arcgis/rest/services/Otros/Gasolineras/FeatureServer/0/query?where=localidad+%3D+%27CORUÑA+%28A%29%27&outFields=latitud,longitud,horario,dirección,rótulo&f=json"
+  - siege -t 10S -c 10 -q "http://www.mapabase.es/arcgis/rest/services/Otros/Gasolineras/FeatureServer/0/query?where=localidad+%3D+%27CORUÑA+%28A%29%27&outFields=latitud,longitud,horario,dirección,rótulo&f=json"
 
 deploy:
   provider: releases

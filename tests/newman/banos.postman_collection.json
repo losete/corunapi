@@ -7,12 +7,105 @@
 	"item": [
 		{
 			"name": "Banos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a1e6ad73-9831-420a-b761-07ac78bbeaf6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"x\\\": -8.\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"y\\\": 43.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8000/banos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"banos"
+					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "WSO2_banos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "691fbecf-4112-4b7c-9d30-a8f553cea899",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"x\\\": -8.\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"y\\\": 43.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9b4b3ef8-b69f-4346-9885-52e928b95957",
+						"exec": [
+							"pm.globals.get(\"token\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:8243/banos/1.0.0/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8243",
+					"path": [
+						"banos",
+						"1.0.0",
+						""
+					]
+				},
+				"description": "Same request to WSO2"
 			},
 			"response": []
 		}

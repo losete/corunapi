@@ -7,11 +7,100 @@
 	"item": [
 		{
 			"name": "atms",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "607f1f7d-c747-45c8-b1bd-c6cdf99a41ab",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"x\\\": -8.\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"y\\\": 43.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8000/cajeros",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"cajeros"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WSO2_atms",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7f41de05-b9a7-48a0-93f7-a9ad44cbe00d",
+						"exec": [
+							"pm.globals.get(\"token\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c88622ae-eeea-4658-ba52-52873a82ef56",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"x\\\": -8.\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"y\\\": 43.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:8243/cajeros/1.0.0/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8243",
+					"path": [
+						"cajeros",
+						"1.0.0",
+						""
+					]
 				}
 			},
 			"response": []
