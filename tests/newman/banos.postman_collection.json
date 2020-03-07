@@ -122,11 +122,11 @@
 							"});",
 							"",
 							"pm.test(\"Body matches string\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"\\\"x\\\": -8.\");",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"x\\\":-8.\");",
 							"});",
 							"",
 							"pm.test(\"Body matches string\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"\\\"y\\\": 43.\");",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"y\\\":43.\");",
 							"});"
 						],
 						"type": "text/javascript"
